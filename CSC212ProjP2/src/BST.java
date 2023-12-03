@@ -1,12 +1,19 @@
 import java.util.Date;
 
-/*************
- * Example*************** CLASS: LinkedList.java CSC212 Data structures -
- * Project phase I Fall 2023 EDIT DATE: 12-10-2023 TEAM: IT PhoneBook AUTHORS:
- * meshari al-harbi , (443102229) saud al-dossaari (441102913) Omar al-juwayr
- * (443101385)
- * 
- ***********************************/
+/*************Example***************
+CLASS: BST.java
+CSC212 Data structures - Project phase II
+Fall 2023
+EDIT DATE:
+3-12-2023
+TEAM:
+IT PhoneBook
+AUTHORS:
+meshari al-harbi , (443102229)
+saud al-dossaari (441102913)
+Omar al-juwayr (443101385)
+
+***********************************/
 public class BST {
 	public BSTNode root;
 	public BSTNode current;

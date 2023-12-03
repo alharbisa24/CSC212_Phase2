@@ -1,9 +1,9 @@
 /*************Example***************
 CLASS: Contact.java
-CSC212 Data structures - Project phase I
+CSC212 Data structures - Project phase II
 Fall 2023
 EDIT DATE:
-8-10-2023
+28-11-2023
 TEAM:
 IT PhoneBook
 AUTHORS:

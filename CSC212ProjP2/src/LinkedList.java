@@ -1,9 +1,9 @@
 /*************Example***************
 CLASS: LinkedList.java
-CSC212 Data structures - Project phase I
+CSC212 Data structures - Project phase II
 Fall 2023
 EDIT DATE:
-12-10-2023
+25-11-2023
 TEAM:
 IT PhoneBook
 AUTHORS:

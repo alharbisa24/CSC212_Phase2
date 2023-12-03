@@ -1,9 +1,9 @@
 /*************Example***************
 CLASS: PhoneBook.java
-CSC212 Data structures - Project phase I
+CSC212 Data structures - Project phase II
 Fall 2023
 EDIT DATE:
-17-10-2023
+3-12-2023
 TEAM:
 IT PhoneBook
 AUTHORS:
@@ -324,7 +324,7 @@ public class PhoneBook {
 
 				}
 			}
-				
+				if(!events.empty()) {
 				events.findFirst();//1
 				while(!events.last()) {//n+1
 					if(events.retrieve().event_contacts.searchbyName(name) != null) {//logn(n) = nlogn
@@ -341,20 +341,26 @@ public class PhoneBook {
 			}
 			
 				
-			
+				}
 				conts.remove(name);//1
 				
 			
 				
 				System.out.println("Contact deleted successfully! ");//1
-				events.findFirst();//1
-	while(!events.last() && !events.empty()) {//n+1
-		if(events.retrieve().event_contacts.empty())//n
+				events.findFirst();//1		
+	
+				
+				while(!events.empty() && !events.last()) {//n+1
+		
+		if(events.retrieve().event_contacts.empty()){//n
 			events.remove(events.retrieve());//n
+		}
 		
 		events.findNext();//n
+		
+		
 	}
-	if(events.retrieve().event_contacts.empty())//1
+	if(!events.empty() && events.retrieve().event_contacts.empty())//1
 		events.remove(events.retrieve());//1
 		
 				
