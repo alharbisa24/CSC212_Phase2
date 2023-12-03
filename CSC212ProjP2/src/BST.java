@@ -7,9 +7,9 @@ import java.util.Date;
  * (443101385)
  * 
  ***********************************/
-public class BST<T extends Comparable<T>> {
-	public BSTNode<T> root;
-	public BSTNode<T> current;
+public class BST {
+	public BSTNode root;
+	public BSTNode current;
 
 	public BST() {
 		root = current = null; // 1
@@ -19,7 +19,7 @@ public class BST<T extends Comparable<T>> {
 		current = root;
 	}
 
-	public BSTNode<T> getRoot() {
+	public BSTNode getRoot() {
 		return root;
 	}
 
@@ -31,20 +31,17 @@ public class BST<T extends Comparable<T>> {
 		return false; // 1
 	}
 
-	public T retrieve() {
-		return current.data; // 1
+	public Contact retrieve() {
+		return (Contact) current.data; // 1
 	}
 
-	public void update(T data) {
-		current.data = data; // 1
-	}
 
 	/*
 	 * 
 	 * 
 	 */
 	public boolean findkey(String tkey) {
-		BSTNode<T> p = root,q = root;
+		BSTNode p = root,q = root;
 		if(empty())
 		return false;
 		while(p != null) {
@@ -63,7 +60,7 @@ public class BST<T extends Comparable<T>> {
 		}
 
 	public Contact searchbyName(String tkey) {
-		BSTNode<T> p = root, q = root;
+		BSTNode p = root, q = root;
 		if (empty())
 			return null;
 		while (p != null) {
@@ -80,14 +77,14 @@ public class BST<T extends Comparable<T>> {
 		return null;
 	}
 
-	public boolean insert(String k, T val) {
-		BSTNode<T> p;
-		BSTNode<T> q = current;
+	public boolean insert(String k, Contact val) {
+		BSTNode p;
+		BSTNode q = current;
 		if (findkey(k)) {
 			current = q;
 			return false;
 		}
-		p = new BSTNode<T>(k, val);
+		p = new BSTNode(k, val);
 		if (empty()) {
 			root = current = p;
 			return true;
@@ -104,14 +101,14 @@ public class BST<T extends Comparable<T>> {
 
 	public boolean remove(String tkey) {// remove node
 		Boolean removed = new Boolean(false);
-		BSTNode<T> p;
+		BSTNode p;
 		p = remove_aux(tkey, root, removed);
 		current = root = p;
 		return removed;
 	}
 
-	private BSTNode<T> remove_aux(String key, BSTNode<T> p, Boolean flag) {
-		BSTNode<T> q, child = null;
+	private BSTNode remove_aux(String key, BSTNode p, Boolean flag) {
+		BSTNode q, child = null;
 		if (p == null)
 			return null;
 		if (key.compareTo(p.key) < 0)
@@ -136,7 +133,7 @@ public class BST<T extends Comparable<T>> {
 		return p;
 	}
 
-	private BSTNode<T> find_min(BSTNode<T> p) {
+	private BSTNode find_min(BSTNode p) {
 		if (p == null)
 			return null;
 
@@ -147,7 +144,7 @@ public class BST<T extends Comparable<T>> {
 		return p;
 	}
 
-	public boolean update(String key, T data) {
+	public boolean update(String key, Contact data) {
 		String key1 = key;
 		removeKey(key1);
 		return insert(key1, data);
@@ -157,8 +154,8 @@ public class BST<T extends Comparable<T>> {
 	public boolean removeKey(String k) {
 		// Search
 		String k1 = k;
-		BSTNode<T> p = root;
-		BSTNode<T> q = null; // Parent of p
+		BSTNode p = root;
+		BSTNode q = null; // Parent of p
 
 		while (p != null) {
 			if (k1.compareTo(p.key) < 0) {
@@ -173,7 +170,7 @@ public class BST<T extends Comparable<T>> {
 				if ((p.left != null) && (p.right != null)) {
 					// Case 3: two children
 					// Search for the min in the right subtree
-					BSTNode<T> min = p.right;
+					BSTNode min = p.right;
 					q = p;
 					while (min.left != null) {
 						q = min;
@@ -214,7 +211,7 @@ public class BST<T extends Comparable<T>> {
 	    {  
 	        return Searchnumberrec (root, num);  
 	    }  
-	    private boolean Searchnumberrec (BSTNode <T> p, String num)  
+	    private boolean Searchnumberrec (BSTNode p, String num)  
 	    {  
 	        if (p == null)  
 	            return false;  
@@ -232,7 +229,7 @@ public class BST<T extends Comparable<T>> {
 	    {  
 	        return SearchEmail_rec (root, email);  
 	    }  
-	    private boolean SearchEmail_rec (BSTNode <T> p, String email)  
+	    private boolean SearchEmail_rec (BSTNode p, String email)  
 	    {  
 	        if (p == null)  
 	            return false ;  
@@ -249,7 +246,7 @@ public class BST<T extends Comparable<T>> {
 	    {  
 	        return SearchAddress_rec (root, address);  
 	    }  
-	    private boolean SearchAddress_rec (BSTNode <T> p, String address)  
+	    private boolean SearchAddress_rec (BSTNode p, String address)  
 	    {  
 	        if (p == null)  
 	            return false ;  
@@ -265,7 +262,7 @@ public class BST<T extends Comparable<T>> {
 	    {  
 	        return SearchBirthday_rec (root, birthday);  
 	    }  
-	    private boolean SearchBirthday_rec (BSTNode < T> p, Date birthday)  
+	    private boolean SearchBirthday_rec (BSTNode  p, Date birthday)  
 	    {  
 	        if (p == null)  
 	            return false ;  
