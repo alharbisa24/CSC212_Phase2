@@ -537,8 +537,11 @@ return null;
 			System.out.println("Enter contact name separated by a comma:");//1
 			input.nextLine();//1
 			String event_contactsname=input.nextLine();//1
+			
+			// split contacts.
 			String[] evconts_names = event_contactsname.split(",");
 			
+			// find if any contact enterd not found in list.
 			for(int i=0; i<evconts_names.length;i++) {
 			if(conts.searchbyName(evconts_names[i]) == null) {
 				System.out.print("Soory!, there are contact enered not exists, please add contact and schedule event again.");
@@ -568,6 +571,7 @@ return null;
 				// insert into big event list
 				events.insert(e);    //1
 				
+				// add contacts in contact list inside event
 				for(int k=0; k<evconts_names.length;k++) {
 					Contact contaev = conts.searchbyName(evconts_names[k]);
 					e.event_contacts.insert(contaev.getContact_name(), contaev);
@@ -575,6 +579,8 @@ return null;
 				
 			return; //1
 			}else {//1
+				
+				// check every contact if have event/appointment have same date or not.
 				for(int j=0; j<evconts_names.length;j++) {
 					if(isConflict(event_datetime, conts.searchbyName(evconts_names[j]))) {
 						System.out.print("Soory!, there are conflict with " + evconts_names[j] +  " events, already have events/appointment with same date.");
@@ -587,7 +593,7 @@ return null;
 				Event e = new Event(event_title, event_datetime, event_location);//1
 		//insert into big event list
 				events.insert(e); //1
-				// insert into event list for contact list
+				// add contacts in contact list inside event
 				for(int d=0; d<evconts_names.length;d++) {
 					Contact contaev = conts.searchbyName(evconts_names[d]);
 					e.event_contacts.insert(contaev.getContact_name(), contaev);
