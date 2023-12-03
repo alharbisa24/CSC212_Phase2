@@ -12,19 +12,19 @@ saud al-dossaari (441102913)
 Omar al-juwayr (443101385)
 
 ***********************************/
-public class Node<T> {
-    public T data;
-    public Node<T> next;
-    public Node<T> previous;
+public class Node {
+    public Event data;
+    public Node next;
+    public Node previous;
 
     public Node() {
     } 
 
-    public Node(T data) {
+    public Node(Event data) {
         this.data = data;
     }
 
-    public Node(T data, Node<T> next, Node<T> previous) {
+    public Node(Event data, Node next, Node previous) {
         this.data = data; 
         this.next = next; 
         this.next = previous; 

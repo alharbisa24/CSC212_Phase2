@@ -12,10 +12,10 @@ saud al-dossaari (441102913)
 Omar al-juwayr (443101385)
 
 ***********************************/
-public class LinkedList <T extends Comparable<T>>{
-    private Node<T> head;
-    private Node<T> current;
-	public Node<T> previous;
+public class LinkedList{
+    private Node head;
+    private Node current;
+	public Node previous;
 
     public LinkedList() {
         head = current = null; //1
@@ -47,21 +47,19 @@ public class LinkedList <T extends Comparable<T>>{
     public void findPrevious() {
         current = current.previous;//1
     }
-    public T retrieve() {
-        return current.data; //1
+    public Event retrieve() {
+        return (Event) current.data; //1
     }
 
-    public void update(T data) {
-        current.data = data; //1
-    }
+
 
  /*
   * 
   * 
   */
 
-	public boolean insert(T val) {// add to the list
-		Node<T> tmp = new Node(val);// O(1)
+	public boolean insert(Event val) {// add to the list
+		Node tmp = new Node(val);// O(1)
 		if (empty()) //1
 			head = current = new Node(val);// O(1)
 		else {//1
@@ -87,11 +85,11 @@ public class LinkedList <T extends Comparable<T>>{
 		return true;//1
 	}
 	// 3n + 15 O(n)
-	public boolean search(T val) {//1
+	public boolean search(Event val) {
 		if (empty()) {//1
 			return false;//1
 		}
-		Node<T> object = head;//1
+		Node object = head;//1
 		while ((object != null) && (object.data.compareTo(val) != 0)) //2n
 			object = object.next; //n
 		if ((object != null) && (object.data.compareTo(val) == 0)) { //2
@@ -100,17 +98,16 @@ public class LinkedList <T extends Comparable<T>>{
 		}
 		return false;//1
 	}
-	//Time complexity of search 3n + 9 O(n)
-	
-	public T remove(T val) {// remove node
+	// 3n + 7
+	public Event remove(Event val) {// remove node
 		if (search(val) == false) { //n
 			return null;//1
 		}
-		T data = current.data;//1
+		Event data = current.data;//1
 		if (current == head)//1
 			head = head.next;//1
 		else {//1
-			Node<T> tmp = head;//1
+			Node tmp = head;//1
 			while (tmp.next != current)//n
 				tmp = tmp.next;//n
 			tmp.next = current.next;//n
@@ -122,7 +119,7 @@ public class LinkedList <T extends Comparable<T>>{
 		return data;//1
 
 	}
-    
+    //4n + 11 O(n)
     
     
 }

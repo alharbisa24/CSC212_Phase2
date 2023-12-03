@@ -21,7 +21,7 @@ public class Contact implements Comparable<Contact> {
 	private String contact_address;
 	private Date contact_birthDay;
 	private String contact_notes;
-	LinkedList<Event>event;
+	LinkedList event;
 
 	public Contact() {
 		this.contact_name = null;
@@ -40,7 +40,7 @@ public class Contact implements Comparable<Contact> {
 		this.contact_address = contact_address;
 		this.contact_birthDay = contact_birthDay;
 		this.contact_notes = contact_notes;
-		event = new LinkedList<Event>();
+		event = new LinkedList();
 	}
 
 	public void setContact_name(String contact_name) {
@@ -66,7 +66,6 @@ public class Contact implements Comparable<Contact> {
 	public void setContact_notes(String contact_notes) {
 		this.contact_notes = contact_notes;
 	}
-
 
 	public String getContact_name() {
 		return contact_name;

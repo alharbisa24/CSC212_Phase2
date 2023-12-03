@@ -36,29 +36,25 @@ public class BST {
 	}
 
 
-	/*
-	 * 
-	 * 
-	 */
 	public boolean findkey(String tkey) {
-		BSTNode p = root,q = root;
-		if(empty())
-		return false;
-		while(p != null) {
-		q = p;
-		if(p.key.compareTo(tkey) == 0) {
-		current = p;
-		return true;
+		BSTNode p = root,q = root; //1
+		if(empty())//1
+		return false;//1
+		while(p != null) {//n+1
+		q = p;//n
+		if(p.key.compareTo(tkey) == 0) {//n
+		current = p;//n
+		return true;//n
 		}
-		else if(tkey.compareTo(p.key) < 0)
-		p = p.left;
-		else
-		p = p.right;
+		else if(tkey.compareTo(p.key) < 0)//n
+		p = p.left;//n
+		else//n
+		p = p.right;//n
 		}
-		current = q;
-		return false;
+		current = q;//1
+		return false;//1
 		}
-
+	// 8n + 6 O(n)
 	public Contact searchbyName(String tkey) {
 		BSTNode p = root, q = root;
 		if (empty())
@@ -78,33 +74,34 @@ public class BST {
 	}
 
 	public boolean insert(String k, Contact val) {
-		BSTNode p;
-		BSTNode q = current;
-		if (findkey(k)) {
-			current = q;
-			return false;
+		BSTNode p;//1
+		BSTNode q = current;//1
+		if (findkey(k)) {//logn
+			current = q;//1
+			return false;//1
 		}
-		p = new BSTNode(k, val);
-		if (empty()) {
-			root = current = p;
-			return true;
-		} else {
-			if (k.compareTo(current.key) < 0)
-				current.left = p;
-			else
-				current.right = p;
-			current = p;
-			return true;
+		p = new BSTNode(k, val);//logn
+		if (empty()) {//1
+			root = current = p;//1
+			return true;//1
+		} else {//1
+			if (k.compareTo(current.key) < 0)//1
+				current.left = p;//1
+			else//1
+				current.right = p;//1
+			current = p;//1
+			return true;//1
 		}
 
 	}
-
+	// 2logn + 14 O(logn)
+	
 	public boolean remove(String tkey) {// remove node
-		Boolean removed = new Boolean(false);
-		BSTNode p;
+		Boolean removed = new Boolean(false); //1
+		BSTNode p;//1
 		p = remove_aux(tkey, root, removed);
-		current = root = p;
-		return removed;
+		current = root = p;//1
+		return removed;//1
 	}
 
 	private BSTNode remove_aux(String key, BSTNode p, Boolean flag) {
@@ -144,134 +141,74 @@ public class BST {
 		return p;
 	}
 
-	public boolean update(String key, Contact data) {
-		String key1 = key;
-		removeKey(key1);
-		return insert(key1, data);
-	}
-
-	// Method removeKey: iterative
-	public boolean removeKey(String k) {
-		// Search
-		String k1 = k;
-		BSTNode p = root;
-		BSTNode q = null; // Parent of p
-
-		while (p != null) {
-			if (k1.compareTo(p.key) < 0) {
-				q = p;
-				p = p.left;
-			} else if (k1.compareTo(p.key) > 0) {
-				q = p;
-				p = p.right;
-			} else {
-				// Found the key
-				// Check the three cases
-				if ((p.left != null) && (p.right != null)) {
-					// Case 3: two children
-					// Search for the min in the right subtree
-					BSTNode min = p.right;
-					q = p;
-					while (min.left != null) {
-						q = min;
-						min = min.left;
-					}
-					p.key = min.key;
-					p.data = min.data;
-					k1 = min.key;
-					p = min;
-					// Now fall back to either case 1 or 2
-				}
-				// The subtree rooted at p will change here
-				if (p.left != null) {
-					// One child
-					p = p.left;
-				} else {
-					// One or no children
-					p = p.right;
-				}
-				if (q == null) {
-					// No parent for p, root must change
-					root = p;
-				} else {
-					if (k1.compareTo(q.key) < 0) {
-						q.left = p;
-					} else {
-						q.right = p;
-					}
-				}
-				current = root;
-				return true;
-			}
-		}
-		return false; // Not found
-	}
-
+	
+	
 	 public boolean Searchnumber(String num)  
 	    {  
-	        return Searchnumberrec (root, num);  
+	        return Searchnumberrec (root, num);  //O(n)
 	    }  
 	    private boolean Searchnumberrec (BSTNode p, String num)  
 	    {  
-	        if (p == null)  
-	            return false;  
-	        else if (((Contact)p.data).compareToPhone(num) == 0)  
+	        if (p == null)  //O(1)
+	            return false;  //O(1)
+	        else if (((Contact)p.data).compareToPhone(num) == 0)  //O(1)
 	        {  
-	            current = p;  
+	            current = p;  //O(1)
 	              
-	            return true;  
+	            return true;  //O(1)
 	        }  
 	          
-	        return (Searchnumberrec(p.left , num) || Searchnumberrec(p.right, num));  
-	    }  
- 
+	        return (Searchnumberrec(p.left , num) || Searchnumberrec(p.right, num));  //O(n)
+	    }  //Time Complexity n+5
+
 	    public boolean SearchEmail(String email)  
 	    {  
-	        return SearchEmail_rec (root, email);  
+	        return SearchEmail_rec (root, email);  //O(n)
 	    }  
 	    private boolean SearchEmail_rec (BSTNode p, String email)  
 	    {  
-	        if (p == null)  
-	            return false ;  
+	        if (p == null)  //O(1)
+	            return false ;   //O(1)
 	          
-	        else if (((Contact)p.data).compareToEmail(email) == 0) {
-	        	current = p ;
-	        	return true;
+	        else if (((Contact)p.data).compareToEmail(email) == 0) { //O(1)
+	        	current = p ; //O(1)
+	        	return true; //O(1)
 	        }
 	        	
 	          
-	        return (SearchEmail_rec(p.left , email)||SearchEmail_rec(p.right, email));    
-	    }   
+	        return (SearchEmail_rec(p.left , email)||SearchEmail_rec(p.right, email));   //O(n)  
+	    }   //Time Complexity n+5
 	    public boolean SearchAddress(String address)  
 	    {  
-	        return SearchAddress_rec (root, address);  
+	        return SearchAddress_rec (root, address);//O(n)  
 	    }  
 	    private boolean SearchAddress_rec (BSTNode p, String address)  
 	    {  
-	        if (p == null)  
-	            return false ;  
-	        else    if (((Contact)p.data).compareToAddress(address) == 0) {
-	            current = p; 
-	            return true;
+	        if (p == null)  //1
+	            return false ; //1 
+	        else    if (((Contact)p.data).compareToAddress(address) == 0) {//1
+	            current = p; //1
+	            return true;//1
 	        }
 	          
-	        return (SearchAddress_rec(p.left , address)||SearchAddress_rec(p.right, address));  
+	        return (SearchAddress_rec(p.left , address)||SearchAddress_rec(p.right, address));  //O(n)
 	    }  
- 
+	  //Time Complexity n+5
 	    public boolean SearchBirthday(Date birthday)  
 	    {  
-	        return SearchBirthday_rec (root, birthday);  
+	        return SearchBirthday_rec (root, birthday);//O(n)  
 	    }  
 	    private boolean SearchBirthday_rec (BSTNode  p, Date birthday)  
 	    {  
-	        if (p == null)  
-	            return false ;  
-	        else    if (((Contact)p.data).compareToBirthday(birthday) == 0) {
-	        	current = p;
-	        	return true;
+	        if (p == null)  //1
+	            return false ; //1 
+	        else    if (((Contact)p.data).compareToBirthday(birthday) == 0) {//1
+	        	current = p;//1
+	        	return true;//1
 	        }
 	          
-	        return (SearchBirthday_rec(p.left , birthday)||SearchBirthday_rec(p.right, birthday));  
+	        return (SearchBirthday_rec(p.left , birthday)||SearchBirthday_rec(p.right, birthday));  //O(n)
+	      //Time Complexity n+5
 	    }   
 	  
 	}  

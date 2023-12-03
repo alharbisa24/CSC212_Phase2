@@ -19,7 +19,7 @@ public class Event implements Comparable<Event> {
 	private Date date_time;
 	private String location;
 	private Contact appointment_Contact;
-	LinkedList<Contact>event_contacts; 
+	BST event_contacts; 
 	private int type;
 	
 	
@@ -37,7 +37,7 @@ public class Event implements Comparable<Event> {
 		this.title = event_title;
 		this.date_time = event_date_time;
 		this.location = event_location;
-		event_contacts = new LinkedList<Contact>();
+		event_contacts = new BST();
 		this.appointment_Contact = null;
 		type = 1;
 	}
