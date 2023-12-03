@@ -168,33 +168,60 @@ public class PhoneBook {
 				boolean foundCon = false;//1
 				// check elements in events list
 				while (!events.last()) {//n-1
+					
 					// if event has same contact name that user enter.
-					if (events.retrieve().get_appContact().getContact_name().compareTo(n) == 0) {//n
+					if (events.retrieve().getType() == 0 && events.retrieve().get_appContact().getContact_name().compareTo(n) == 0) {//n
 						System.out.println("Event found!\r\n");//n
 						System.out.println("Event title:" + events.retrieve().get_title());//n
-						System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+							System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+	
 						System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
 						System.out.println("Event location:" + events.retrieve().get_location());//n
 						// change boolean found to true that means system find event has same contact name that user enter.
 						foundCon = true;//n
+					}else if(events.retrieve().getType() == 1) {
+						System.out.println("Event found!\r\n");//n
+						System.out.println("Event title:" + events.retrieve().get_title());//n
+						System.out.print("Contacts name: ");
+						printrelatedevent(events.retrieve().event_contacts.getRoot());	
+						System.out.println();
+						System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
+						System.out.println("Event location:" + events.retrieve().get_location());//n
+						
+						
 					}
 					// move current into next element
 
 						events.findNext(); //n
 					
 				}
-				// check the last element in event list
+				
+				
+				
+				
+				
 				// if event has same contact name that user enter.
-				if (events.retrieve().get_appContact().getContact_name().compareTo(n) == 0) {//1
-					System.out.println("Event found!\r\n");//1
-					System.out.println("Event title:" + events.retrieve().get_title());//1
-					System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//1
-					System.out.println("Event date and time:" + events.retrieve().get_date_time());//1
-					System.out.println("Event location:" + events.retrieve().get_location());//1
-					// change boolean found to true that means system find event has same contact name that user enter.
+				if (events.retrieve().getType() == 0 && events.retrieve().get_appContact().getContact_name().compareTo(n) == 0) {//n
+					System.out.println("Event found!\r\n");//n
+					System.out.println("Event title:" + events.retrieve().get_title());//n
+						System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+						System.out.println();
 
-					foundCon = true;//1
+					System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
+					System.out.println("Event location:" + events.retrieve().get_location());//n
+					// change boolean found to true that means system find event has same contact name that user enter.
+					foundCon = true;//n
+				}else if(events.retrieve().getType() == 1) {
+					System.out.println("Event found!\r\n");//n
+					System.out.println("Event title:" + events.retrieve().get_title());//n
+					System.out.print("Contacts name: ");
+					printrelatedevent(events.retrieve().event_contacts.getRoot());
+					System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
+					System.out.println("Event location:" + events.retrieve().get_location());//n
+					
+					
 				}
+				
 				// if contact not found
 				if(foundCon == false)//1
 					System.out.print("events not found !\n");//1
@@ -214,7 +241,14 @@ public class PhoneBook {
 					if (events.retrieve().get_title().equalsIgnoreCase(n) && events.retrieve().getType() == 1) {//n
 						System.out.println("Event found!\r\n");//n
 						System.out.println("Event title:" + events.retrieve().get_title());//n
-						System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+						if(events.retrieve().getType() ==0)
+							System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+							else {
+								System.out.print("Contacts name: ");
+								printrelatedevent(events.retrieve().event_contacts.getRoot());
+								System.out.println();
+
+							}
 						System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
 						System.out.println("\nEvent location:" + events.retrieve().get_location());//n
 						// change boolean found to true that means system find event has same event title that user enter.
@@ -230,7 +264,14 @@ public class PhoneBook {
 				if (events.retrieve().get_title().equalsIgnoreCase(n) && events.retrieve().getType() == 1) {//1
 					System.out.println("Event found!\r\n");//1
 					System.out.println("Event title:" + events.retrieve().get_title());//1
-					System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//1
+					if(events.retrieve().getType() ==0)
+						System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+						else {
+							System.out.print("Contacts name: ");
+							printrelatedevent(events.retrieve().event_contacts.getRoot());
+							System.out.println();
+
+						}
 					System.out.println("Event date and time:" + events.retrieve().get_date_time());//1
 					System.out.println("Event location:" + events.retrieve().get_location());//1
 					// change boolean found to true that means system find event has same event title that user enter.
@@ -257,28 +298,47 @@ public class PhoneBook {
 				System.out.println("Contact not found");
 			else {
 				Contact c = conts.searchbyName(name);
-				c = conts.retrieve();
-				if(!c.event.empty()) {
-					c.event.findFirst();
-					while(!c.event.last()) {
-						Event e = c.event.retrieve();
-						if(!events.empty()&& events.retrieve().get_date_time().compareTo(e.get_date_time())==0
-								&& events.retrieve().get_location().compareTo(e.get_location())==0
-								&& events.retrieve().getType() == e.getType()) {
-							events.remove(e);
-							
-						}
-						events.findNext();
-						}
-					Event e = c.event.retrieve();
-					if(!events.empty()&& events.retrieve().get_date_time().compareTo(e.get_date_time())==0
-							&& events.retrieve().get_location().compareTo(e.get_location())==0
-							&& events.retrieve().getType() == e.getType()) {
-						events.remove(e);
-					}
-				}
-				conts.remove(c.getContact_name());
+				
+				if(!conts.retrieve().event.empty()) {
+				conts.retrieve().event.findFirst(); //1
+				while (!conts.retrieve().event.last()) {// n-1
+					Event e = events.retrieve(); //n
+					if (events.search(e)) {//n*n
+						events.remove(e);//n*n
 
+					}
+
+					conts.retrieve().event.findNext();//n
+				}
+				Event e = events.retrieve(); //1
+				if (events.search(e)) {//n
+					events.remove(e);//n
+
+				}
+			}
+				events.findFirst();
+				while(!events.last()) {
+					
+					if(!events.retrieve().event_contacts.empty()) {
+						
+					if(events.retrieve().event_contacts.searchbyName(name) != null) {
+						events.retrieve().event_contacts.remove(name);
+				}
+					}
+				
+					if(events.retrieve().event_contacts.empty())
+						events.remove();
+						
+						events.findNext();
+				}
+				if(events.retrieve().event_contacts.searchbyName(name) != null) {
+					events.retrieve().event_contacts.remove(name);
+			}
+				if(events.retrieve().event_contacts.empty())
+					events.remove();
+				conts.remove(name);
+				
+			
 				System.out.println("Contact deleted successfully! ");
 				
 			}
@@ -332,7 +392,26 @@ return null;
 		
 	}
 	
+	public static BSTNode<Contact> printrelatedevent(BSTNode<Contact> node) {
 
+		if (node==null) {
+		    return null;
+		}
+		
+		System.out.print(node.data.getContact_name() + ", ");
+	
+		BSTNode<Contact> leftResult = printrelatedevent(node.left);    
+		if (leftResult!=null) {
+		    return leftResult;
+		}
+		BSTNode<Contact> rightResult = printrelatedevent(node.right);
+		if (rightResult != null) {
+		    return rightResult;
+		}
+		return null;
+		
+		
+	}
 	// method for print events alphabetically
 	public static void print_alph() {
 		
@@ -346,7 +425,15 @@ return null;
 		// check elements in events list
 		while (!events.last()) {//n-1
 			System.out.println("Event title:" + events.retrieve().get_title());//n
-			System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+			if(events.retrieve().getType() ==0)
+				System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+				else {
+					System.out.print("Contacts name: ");
+					printrelatedevent(events.retrieve().event_contacts.getRoot());
+					System.out.println();
+
+				}
+				
 			System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
 			System.out.println("Event location:" + events.retrieve().get_location());//n
 			System.out.print("\n");//n
@@ -356,7 +443,14 @@ return null;
 		}
 		// print last element in event list.
 		System.out.println("Event title:" + events.retrieve().get_title());//1
-		System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//1
+		if(events.retrieve().getType() ==0)
+		System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
+		else {
+			System.out.print("Contacts name: ");
+			printrelatedevent(events.retrieve().event_contacts.getRoot());
+			System.out.println();
+
+		}
 		System.out.println("Event date and time:" + events.retrieve().get_date_time());//1
 		System.out.println("Event location:" + events.retrieve().get_location());//1
 		System.out.print("\n");//1
@@ -365,21 +459,82 @@ return null;
 	
 	// Time Complexity of print_alph method : 7n + 8 O(n)
 
+	
+	public static BSTNode<Contact> isConflictBST(BSTNode<Contact> node, Contact conts) {
+
+		if (node==null) {
+		    return null;
+		}
+	
+		if(node.data.getContact_name().equalsIgnoreCase(conts.getContact_name()))
+			return node;
+		
+		BSTNode<Contact> leftResult = isConflictBST(node.left, conts);    
+		if (leftResult!=null) {
+		    return leftResult;
+		}
+		BSTNode<Contact> rightResult = isConflictBST(node.right, conts);
+		if (rightResult != null) {
+		    return rightResult;
+		}
+		return null;
+		
+		
+	}
+	
+	public static boolean isConflict(Date date, Contact cont) {
+		events.findFirst();
+		if(events.empty())
+			return false;
+		
+		events.findFirst();
+		while(!events.last()) {
+			if(events.retrieve().getType() ==0) {
+				if(events.retrieve().get_date_time().equals(date) && events.retrieve().get_appContact().equals(cont)) {
+					return true;
+				}
+				
+			}else {
+				if(events.retrieve().get_date_time().equals(date) && (isConflictBST(events.retrieve().event_contacts.getRoot(), cont) != null)) {
+					return true;
+				}
+			}
+			
+			
+			events.findNext();
+		}
+		if(events.retrieve().getType() ==0) {
+			if(events.retrieve().get_date_time().equals(date) && events.retrieve().get_appContact().equals(cont)) {
+				return true;
+			}
+			
+		}else {
+			if(events.retrieve().get_date_time().equals(date) && (isConflictBST(events.retrieve().event_contacts.getRoot(), cont) != null)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
 	 //this method for schecule an Event   
 	 public static void shceduleEvent() {       
-		
-}
-	 //this method for schecule an Event   
-	 public static void shceduleAppoint() {       
 			System.out.println("Enter event title:"); //1
 			String event_title=input.next();//1
-			System.out.println("Enter contact name:");//1
+			System.out.println("Enter contact name separated by a comma:");//1
 			input.nextLine();//1
-			String event_contactname=input.nextLine();//1
-			Contact contact = conts.searchbyName(event_contactname);//n
-			if(contact==null) {//1
-				System.out.println("contact not found !");//1
-				return;//1
+			String event_contactsname=input.nextLine();//1
+			String[] evconts_names = event_contactsname.split(",");
+			
+			for(int i=0; i<evconts_names.length;i++) {
+			if(conts.searchbyName(evconts_names[i]) == null) {
+				System.out.print("Soory!, there are contact enered not exists, please add contact and schedule event again.");
+				return;
+			}
 			}
 			
 			System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");//1
@@ -393,8 +548,72 @@ return null;
 
 				
 				}
-			
+		
 			System.out.println("Enter event location:");//1
+			String event_location=input.nextLine();		//1
+	
+			// check if events list is empty or not
+			if(events.empty()) {    //1
+
+				Event e = new Event(event_title, event_datetime, event_location);//1
+				// insert into big event list
+				events.insert(e);    //1
+				
+				for(int k=0; k<evconts_names.length;k++) {
+					Contact contaev = conts.searchbyName(evconts_names[k]);
+					e.event_contacts.insert(contaev.getContact_name(), contaev);
+				}
+				
+			return; //1
+			}else {//1
+				for(int j=0; j<evconts_names.length;j++) {
+					if(isConflict(event_datetime, conts.searchbyName(evconts_names[j]))) {
+						System.out.print("Soory!, there are conflict with " + evconts_names[j] +  " events, already have events/appointment with same date.");
+						return;
+					}
+				}
+				
+				
+//make object for event
+				Event e = new Event(event_title, event_datetime, event_location);//1
+		//insert into big event list
+				events.insert(e); //1
+				// insert into event list for contact list
+				for(int d=0; d<evconts_names.length;d++) {
+					Contact contaev = conts.searchbyName(evconts_names[d]);
+					e.event_contacts.insert(contaev.getContact_name(), contaev);
+					
+					
+				}							
+			}                                                                                           
+		
+}
+	 //this method for schecule an Event   
+	 public static void shceduleAppoint() {       
+			System.out.println("Enter appointment title:"); //1
+			String event_title=input.next();//1
+			System.out.println("Enter contact name:");//1
+			input.nextLine();//1
+			String event_contactname=input.nextLine();//1
+			Contact contact = conts.searchbyName(event_contactname);//n
+			if(contact==null) {//1
+				System.out.println("contact not found !");//1
+				return;//1
+			}
+			
+			System.out.println("Enter appointment date and time (MM/DD/YYYY HH:MM):");//1
+			Date event_datetime;
+
+			try {
+				 event_datetime = new Date(input.nextLine());//1
+				}catch(IllegalArgumentException i) {
+					System.out.print("date is not correct, enter correct date \n");//1
+					 event_datetime = new Date(input.nextLine());//1
+
+				
+				}
+			
+			System.out.println("Enter appointment location:");//1
 			String event_location=input.nextLine();		//1
 	
 			// check if events list is empty or not
@@ -407,38 +626,23 @@ return null;
 				contact.event.insert(e);//1
 			return; //1
 			}else {//1
-				// if events list is not empty
-				// set current into first element in list
-				events.findFirst();   //1     
-				// check events list
-				while(!events.last()) {//n-1
-					
-					// check if there event for this contact in same event date/time
-					if(events.retrieve().get_date_time().equals(event_datetime) && events.retrieve().get_appContact().getContact_name().equals(contact.getContact_name())) { //2n
-						System.out.println("Sorry there is event this time");  //n
+	
+				if(isConflict(event_datetime, contact)){
+						System.out.println("Sorry there is event/appointment in this time");  //n
 					return;
 					}
-					// move to next element
-					events.findNext();//n
-				}
-				// check last element in event list
-				// check if there event for this contact in same event date/time
-				if(events.retrieve().get_date_time().equals(event_datetime) && events.retrieve().get_appContact().getContact_name().equals(contact.getContact_name())) { //2
-					System.out.println("Sorry there is event this time");                    //1        
-					return;//1
+					
 				
-				}
 				
-//make object for event
 				Event e = new Event(event_title, event_datetime, event_location, contact);//1
-		//insert into big event list
+
 				events.insert(e); //1
-				// insert into event list for contact list
 				contact.event.insert(e);//1
-							
-			}                                                                                           
+				}				
+				}                                                                                         
 		
-}	 
+
+	 
 	 //5n + 25 O(n)
 	public static void main(String[] args) {
 
