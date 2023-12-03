@@ -205,7 +205,6 @@ public class PhoneBook {
 					System.out.println("Event found!\r\n");//n
 					System.out.println("Event title:" + events.retrieve().get_title());//n
 						System.out.println("Contact name:" + events.retrieve().get_appContact().getContact_name());//n
-						System.out.println();
 
 					System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
 					System.out.println("Event location:" + events.retrieve().get_location());//n
@@ -216,6 +215,7 @@ public class PhoneBook {
 					System.out.println("Event title:" + events.retrieve().get_title());//n
 					System.out.print("Contacts name: ");
 					printrelatedevent(events.retrieve().event_contacts.getRoot());
+					System.out.println();
 					System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
 					System.out.println("Event location:" + events.retrieve().get_location());//n
 					
@@ -238,7 +238,7 @@ public class PhoneBook {
 				// check elements in events list
 				while (!events.last()) {//n-1
 					// if event has event title that user enter.
-					if (events.retrieve().get_title().equalsIgnoreCase(n) && events.retrieve().getType() == 1) {//n
+					if (events.retrieve().get_title().equalsIgnoreCase(n)) {//n
 						System.out.println("Event found!\r\n");//n
 						System.out.println("Event title:" + events.retrieve().get_title());//n
 						if(events.retrieve().getType() ==0)
@@ -250,7 +250,7 @@ public class PhoneBook {
 
 							}
 						System.out.println("Event date and time:" + events.retrieve().get_date_time());//n
-						System.out.println("\nEvent location:" + events.retrieve().get_location());//n
+						System.out.println("Event location:" + events.retrieve().get_location());//n
 						// change boolean found to true that means system find event has same event title that user enter.
 
 						foundCon = true;//n
@@ -261,7 +261,7 @@ public class PhoneBook {
 				}
 				// check the last element in event list
 				// if event has event title that user enter.
-				if (events.retrieve().get_title().equalsIgnoreCase(n) && events.retrieve().getType() == 1) {//1
+				if (events.retrieve().get_title().equalsIgnoreCase(n)) {//1
 					System.out.println("Event found!\r\n");//1
 					System.out.println("Event title:" + events.retrieve().get_title());//1
 					if(events.retrieve().getType() ==0)
@@ -316,30 +316,39 @@ public class PhoneBook {
 
 				}
 			}
+				
 				events.findFirst();
 				while(!events.last()) {
-					
-					if(!events.retrieve().event_contacts.empty()) {
-						
 					if(events.retrieve().event_contacts.searchbyName(name) != null) {
 						events.retrieve().event_contacts.remove(name);
 				}
-					}
-				
-					if(events.retrieve().event_contacts.empty())
-						events.remove();
-						
+					
+	
+
 						events.findNext();
+			
 				}
 				if(events.retrieve().event_contacts.searchbyName(name) != null) {
 					events.retrieve().event_contacts.remove(name);
 			}
-				if(events.retrieve().event_contacts.empty())
-					events.remove();
+			
+				
+			
 				conts.remove(name);
 				
 			
+				
 				System.out.println("Contact deleted successfully! ");
+				events.findFirst();
+	while(!events.last() && !events.empty()) {
+		if(events.retrieve().event_contacts.empty())
+			events.remove(events.retrieve());
+		
+		events.findNext();
+	}
+	if(events.retrieve().event_contacts.empty())
+		events.remove(events.retrieve());
+		
 				
 			}
 		}
